@@ -1,6 +1,28 @@
 # 🚀 Learning React for noob Users
 We’ll build a simple React app using Vite, TailwindCSS, and basic components/pages.
 
+Folder Structure
+```
+├── public/             # Static assets (favicon, images, etc.)
+├── src/                # All the source code
+│   ├── assets/         # Images, logos, global styles (optional)
+│   ├── components/     # Reusable UI blocks (e.g., Navbar, Button)
+│   ├── pages/          # Page components (e.g., Home, About, Events)
+│   ├── services/       # Functions to call APIs or external services
+│   ├── hooks/          # Custom hooks (e.g., useFetch, useForm)
+│   ├── context/        # Global state (e.g., AuthContext, ThemeContext)
+│   ├── utils/          # Helper functions (e.g., formatDate, capitalize)
+│   ├── App.jsx         # Main app component with routes
+│   ├── main.jsx        # Entry point (calls <App />)
+│   └── index.css       # TailwindCSS or global styles
+│
+├── .env                # Environment variables (API keys, secrets)
+├── Dockerfile          # To run the app in a container
+├── vite.config.js      # Vite configuration
+├── package.json        # Project dependencies
+└── README.md           # Project info
+```
+
 ## 1. Create React App (with Vite)
 ```
 npm create vite@latest
@@ -144,3 +166,57 @@ function App() {
 }
 
 export default App
+```
+
+## 6. Events
+An event is something the user does (like click, type, hover), and we can respond with a function (called a handler).
+
+pages/Events.jsx
+```
+function Events() {
+    const handleClick = () => {
+        console.log("You clicked the main button!");
+    };
+
+    const handleHover = () => {
+        console.log("You hovered over me!");
+    };
+
+    const handleInputChange = (e) => {
+        console.log("You typed:", e.target.value);
+    };
+
+    return (
+        <div className="p-4 space-y-4">
+            <button
+                onClick={handleClick}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+                Click Me
+            </button>
+
+            <div
+                onMouseOver={handleHover}
+                className="p-4 bg-gray-200 rounded cursor-pointer"
+            >
+                Hover over this box
+            </div>
+
+            <input
+                type="text"
+                onChange={handleInputChange}
+                placeholder="Type something..."
+                className="border p-2 rounded"
+            />
+        </div>
+    );
+}
+
+export default Events
+```
+
+## 6. useState
+
+```
+```
+
