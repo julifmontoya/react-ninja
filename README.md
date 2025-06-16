@@ -168,7 +168,7 @@ function App() {
 export default App
 ```
 
-## 6. Events
+## 7. Events
 An event is something the user does (like click, type, hover), and we can respond with a function (called a handler).
 
 pages/Events.jsx
@@ -215,8 +215,67 @@ function Events() {
 export default Events
 ```
 
-## 6. useState
+## 8. useState
+useState lets your component remember things (like a counter, a name, or a toggle). It reacts to changes, so your UI updates automatically when the value changes.
 
+🔍 const [count, setCount] = useState(0)
+- count → the current value (starts at 0)
+- setCount → the function to change the value
+- When setCount is called, the UI automatically updates
+
+🧠 You can use useState for any value:
+- const [name, setName] = useState("Julian");
+- const [isOnline, setIsOnline] = useState(true);
+- const [items, setItems] = useState([]);
+
+pages/useState.jsx
 ```
+import React, { useState } from 'react';
+
+function UserForm() {
+  // [value, function to update it]
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // prevent page reload
+    console.log("User Info:", { name, age });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="p-4 space-y-4 max-w-md">
+      <div>
+        <label className="block mb-1 font-medium">Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter your name"
+          className="border p-2 rounded w-full"
+        />
+      </div>
+
+      <div>
+        <label className="block mb-1 font-medium">Age:</label>
+        <input
+          type="number"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          placeholder="Enter your age"
+          className="border p-2 rounded w-full"
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Submit
+      </button>
+    </form>
+  );
+}
+
+export default UserForm;
 ```
 

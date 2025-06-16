@@ -7,12 +7,14 @@ function Navbar() {
       <Link to="/" className="hover:underline">Home</Link>
       <Link to="/render-values" className="hover:underline">RenderValues</Link>
       <Link to="/events" className="hover:underline">Events</Link>
+        <Link to="/use-state" className="hover:underline">UseState</Link>
     </nav>
   );
 }
 
-/* export default Navbar;
+export default Navbar;
 
+/* 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
