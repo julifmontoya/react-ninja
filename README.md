@@ -215,6 +215,13 @@ function Events() {
 export default Events
 ```
 
+Hook it into your app
+In App.jsx:
+```
+import Events from './pages/Events';
+<Route path="/events" element={<Events />} />
+```
+
 ## 8. useState
 useState lets your component remember things (like a counter, a name, or a toggle). It reacts to changes, so your UI updates automatically when the value changes.
 
@@ -279,3 +286,61 @@ function UserForm() {
 export default UserForm;
 ```
 
+Hook it into your app
+In App.jsx:
+```
+import UseState from './pages/UseStateForm';
+<Route path="/use-state" element={<UseState />} />
+```
+
+## 9. Props – Passing Data to Components
+Props (short for properties) are a way to pass data from a parent component to a child component in React. It’s like giving your component some tools or info to do its job. Props are read-only — the child can use them but not change them.
+
+Create a component called UserCard.jsx (in components)
+```
+import React from 'react';
+
+// Destructure props directly in the function parameters
+function UserCard({ name, age }) {
+  return (
+    <div className="border p-4 rounded shadow bg-white">
+      <h3 className="text-lg font-semibold">👤 {name}</h3>
+      <p>Age: {age}</p>
+    </div>
+  );
+}
+
+export default UserCard;
+```
+
+Use that component in a page like UserList.jsx (in pages)
+```
+import React from 'react';
+import UserCard from '../components/UserCard';
+
+function UserList() {
+  const users = [
+    { name: 'Alice', age: 25 },
+    { name: 'Bob', age: 32 },
+    { name: 'Charlie', age: 29 }
+  ];
+
+  return (
+    <div className="p-4 space-y-4">
+      <h2 className="text-xl font-bold">User List</h2>
+
+      {users.map((user, index) => (
+        <UserCard key={index} name={user.name} age={user.age} />
+      ))}
+    </div>
+  );
+}
+
+export default UserList;
+```
+
+Hook it into your app
+```
+import UserList from './pages/UserList';
+<Route path="/users" element={<UserList />} />
+```
