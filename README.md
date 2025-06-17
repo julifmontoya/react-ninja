@@ -534,3 +534,104 @@ Hook it into your app
 import FetchUsers from './pages/Memo';
 <Route path="/use-memo" element={<Memo />} />
 ```
+
+## 13. Context
+context/ThemeContext.jsx
+```
+import { createContext, useState } from 'react';
+
+export const ThemeContext = createContext();
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+```
+
+App.jsx
+```
+import { BrowserRouter, Routes, Route } from 'react-router'
+
+import Navbar from './components/Navbar';
+import Home from "./pages/Home";
+import RenderValues from './pages/RenderValues';
+import Events from './pages/Events';
+import UseState from './pages/UseStateForm';
+import UserList from './pages/UserList';
+import UserListDelete from './pages/UserListDelete';
+import FetchUsers from './pages/FetchUsers';
+import Memo from './pages/Memo';
+import { ThemeProvider } from './context/ThemeContext';
+
+function App() {
+  return (
+    <ThemeProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/render-values" element={<RenderValues />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/use-state" element={<UseState />} />
+          <Route path="/props" element={<UserList />} />
+          <Route path="/emit" element={<UserListDelete />} />
+          <Route path="/fetch-users" element={<FetchUsers />} />
+          <Route path="/use-memo" element={<Memo />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  )
+}
+
+export default App
+```
+
+ThemeToggler.jsx component 
+```
+import React, { useContext } from 'react';
+import { ThemeContext } from '../context/ThemeContext';
+
+function ThemeToggler() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  return (
+    <div className={`p-4 ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}`}>
+      <p>Current theme: {theme}</p>
+      <button
+        onClick={toggleTheme}
+        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Toggle Theme
+      </button>
+    </div>
+  );
+}
+
+export default ThemeToggler;
+```
+
+Home
+```
+import React from 'react';
+import ThemeToggler from '../components/ThemeToggler';
+
+function Home() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">🏡 Home</h1>
+      <ThemeToggler />
+    </div>
+  );
+}
+
+export default Home;
+```
