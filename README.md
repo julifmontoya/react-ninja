@@ -348,5 +348,77 @@ export default UserList;
 Hook it into your app
 ```
 import UserList from './pages/UserList';
-<Route path="/users" element={<UserList />} />
+<Route path="/props" element={<UserList />} />
 ```
+
+## 10. Function as a Prop: Emitting Info from Child to Parent in React
+- The parent component creates a function
+- That function is passed down to the child as a prop
+- The child calls that function, optionally sending some data
+- The parent receives that info, and reacts (like updating state)
+
+Create a component called UserCardDelete.jsx (in components)
+```
+import React from 'react';
+
+function UserCard({ user, onDelete }) {
+  return (
+    <div className="border p-4 rounded shadow bg-white flex justify-between items-center">
+      <div>
+        <h3 className="text-lg font-semibold">👤 {user.name}</h3>
+        <p>Age: {user.age}</p>
+      </div>
+
+      <button
+        onClick={() => onDelete(user.id)}
+        className="text-red-500 hover:text-red-700 text-xl"
+        title="Delete user"
+      >
+        🗑️
+      </button>
+    </div>
+  );
+}
+
+export default UserCard;
+```
+
+UserList.jsx – Manage state and pass handleDelete
+```
+import React, { useState } from 'react';
+import UserCard from '../components/UserCardDelete';
+
+function UserList() {
+  const [users, setUsers] = useState([
+    { id: 1, name: 'Alice', age: 25 },
+    { id: 2, name: 'Bob', age: 32 },
+    { id: 3, name: 'Charlie', age: 29 }
+  ]);
+
+  const handleDelete = (idToDelete) => {
+    setUsers((prevUsers) => prevUsers.filter(user => user.id !== idToDelete));
+    console.log(`User with ID ${idToDelete} has been deleted`);
+  };
+
+  return (
+    <div className="p-4 space-y-4">
+      <h2 className="text-xl font-bold">User List</h2>
+
+      {users.map((user) => (
+        <UserCard key={user.id} user={user} onDelete={handleDelete} />
+      ))}
+    </div>
+  );
+}
+
+export default UserList;
+```
+
+Hook it into your app
+```
+import UserListDelete from './pages/UserListDelete';
+<Route path="/emits" element={<UserListDelete />} />
+```
+
+## 11. 
+

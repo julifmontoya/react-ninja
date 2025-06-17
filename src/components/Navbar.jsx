@@ -8,7 +8,8 @@ function Navbar() {
       <Link to="/render-values" className="hover:underline">RenderValues</Link>
       <Link to="/events" className="hover:underline">Events</Link>
       <Link to="/use-state" className="hover:underline">UseState</Link>
-      <Link to="/users" className="hover:underline">Users</Link>
+      <Link to="/props" className="hover:underline">Props</Link>
+      <Link to="/emit" className="hover:underline">Emit</Link>
     </nav>
   );
 }

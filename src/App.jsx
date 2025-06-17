@@ -6,6 +6,7 @@ import RenderValues from './pages/RenderValues';
 import Events from './pages/Events';
 import UseState from './pages/UseStateForm';
 import UserList from './pages/UserList';
+import UserListDelete from './pages/UserListDelete';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/render-values" element={<RenderValues />} />
         <Route path="/events" element={<Events />} />
         <Route path="/use-state" element={<UseState />} />
-        <Route path="/users" element={<UserList />} />
+        <Route path="/props" element={<UserList />} />
+        <Route path="/emit" element={<UserListDelete />} />
       </Routes>
     </BrowserRouter>
   )
