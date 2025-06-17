@@ -10,6 +10,8 @@ function Navbar() {
       <Link to="/use-state" className="hover:underline">UseState</Link>
       <Link to="/props" className="hover:underline">Props</Link>
       <Link to="/emit" className="hover:underline">Emit</Link>
+      <Link to="/fetch-users" className="hover:underline">Fetch API</Link>
+      <Link to="/use-memo" className="hover:underline">Use Memo</Link>
     </nav>
   );
 }

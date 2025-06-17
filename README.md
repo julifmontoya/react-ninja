@@ -420,5 +420,117 @@ import UserListDelete from './pages/UserListDelete';
 <Route path="/emits" element={<UserListDelete />} />
 ```
 
-## 11. 
+## 11. Fetch users with async/await
 
+pages/FetchUsers.jsx
+```
+import React, { useEffect, useState } from 'react';
+
+function FetchUsers() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Async function to fetch users
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Call the function once when component loads
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  if (loading) {
+    return <p className="p-4">Loading users...</p>;
+  }
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">Fetched Users</h2>
+      <ul className="space-y-2">
+        {users.map(user => (
+          <li key={user.id} className="p-2 border rounded">
+            <p className="font-semibold">{user.name}</p>
+            <p className="text-sm text-gray-500">{user.email}</p>
+            <p className="text-sm">{user.address.city}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default FetchUsers;
+```
+
+Hook it into your app
+```
+import FetchUsers from './pages/FetchUsers';
+<Route path="/fetch-users" element={<FetchUsers />} />
+```
+
+## 12. useMemo — Memoize Expensive Calculations
+useMemo is a React Hook that caches a computed value so it only recalculates when dependencies change.
+It’s used for performance optimization when recalculating is expensive or causes unnecessary re-renders.
+
+```
+import React, { useMemo, useState } from 'react';
+
+function Memo() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const users = [
+    { id: 1, name: 'Alice Johnson', age: 28 },
+    { id: 2, name: 'Marcus Lee', age: 35 },
+    { id: 3, name: 'Sophia Rivera', age: 22 },
+    { id: 4, name: 'Daniel Kim', age: 41 },
+    { id: 5, name: 'Emma Brooks', age: 30 }
+  ];
+
+  // 🧠 Only re-filters if searchTerm or users changes
+  const filteredUsers = useMemo(() => {
+    console.log('Filtering users...');
+    return users.filter((user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm, users]);
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-2">🔍 Filter Users</h2>
+
+      <input
+        type="text"
+        placeholder="Search by name..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="border p-2 rounded mb-4"
+      />
+
+      <ul className="list-disc ml-6 space-y-1">
+        {filteredUsers.map((user) => (
+          <li key={user.id}>
+            {user.name} – {user.age} years old
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default Memo;
+```
+
+Hook it into your app
+```
+import FetchUsers from './pages/Memo';
+<Route path="/use-memo" element={<Memo />} />
+```
