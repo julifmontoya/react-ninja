@@ -26,6 +26,7 @@ Folder Structure
 ## 1. Create React App (with Vite)
 ```
 npm create vite@latest
+npm install
 npm run dev
 npm install react-router react-router-dom
 ```
